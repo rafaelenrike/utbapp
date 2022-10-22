@@ -5,6 +5,7 @@ terraform {
       version = "=3.28.0"
     }
   }
+
   backend "azurerm" {
     resource_group_name  = "rg_terraform"
     storage_account_name = "terraformstorageutb"
@@ -14,7 +15,7 @@ terraform {
 }
 
 provider "azurerm" {
-   features {
+  features {
 
   }
 }
