@@ -19,6 +19,11 @@ provider "azurerm" {
   }
 }
 
+variable "imagebuild" {
+  type = string
+  description = "the latest image build version"
+}
+
 resource "azurerm_resource_group" "rg_utbapp" {
   name = "rg_utbapp" # this is the name on azure
   location = "eastus" # data center location on azure
@@ -36,7 +41,7 @@ resource "azurerm_container_group" "tf_cg_utb" {
   # Specify the container information
   container {
     name = "utbapp"
-    image = "rafaelenrike/utbapp"
+    image = "rafaelenrike/utbapp:${var.image_build}"
     cpu = "1"
     memory = "1"
 
