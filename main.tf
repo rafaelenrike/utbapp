@@ -41,7 +41,7 @@ resource "azurerm_container_group" "tf_cg_utb" {
   # Specify the container information
   container {
     name = "utbapp"
-    image = "rafaelenrike/utbapp:${var.image_build}"
+    image = "rafaelenrike/utbapp:${var.imagebuild}"
     cpu = "1"
     memory = "1"
 
