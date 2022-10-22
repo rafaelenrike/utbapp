@@ -5,6 +5,12 @@ terraform {
       version = "=3.28.0"
     }
   }
+  backend "azurerm" {
+    resource_group_name  = "rg_terraform"
+    storage_account_name = "terraformstorageutb"
+    container_name       = "tfstatesdevops"
+    key                  = "terraformgithub.tfstate"
+  }
 }
 
 provider "azurerm" {
