@@ -35,7 +35,7 @@ stages:
     - job : provision
       displayName: 'Provision container instance'
       pool:
-        name: mypool
+        vmImage: 'ubuntu-latest'
       variables: # vars from azure devOps in library
       - group: tf_vars
       steps:
