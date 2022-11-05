@@ -22,7 +22,7 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'Docker Hub'
+        containerRegistry: 'DockerHub'
         repository: 'rafaelenrike/utbapp'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
