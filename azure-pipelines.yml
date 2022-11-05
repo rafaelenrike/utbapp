@@ -18,7 +18,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-        vmImage: 'ubuntu-latest'
+        name: mypool
     steps:
     - task: Docker@2
       inputs:
@@ -35,7 +35,7 @@ stages:
     - job : provision
       displayName: 'Provision container instance'
       pool:
-        vmImage: 'ubuntu-latest'
+        name: mypool
       variables: # vars from azure devOps in library
       - group: tf_vars
       steps:
