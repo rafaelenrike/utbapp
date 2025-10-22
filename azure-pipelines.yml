@@ -32,7 +32,7 @@ stages: # step 1
   - job: Provision
     displayName: 'Provision container instance'
     pool:
-      vmImage: ubuntu-latest
+      vmImage: ubuntu-22.04
       # name: Default
     variables: # vars from azure devOps in library
     - group: azure
