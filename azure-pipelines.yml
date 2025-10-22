@@ -14,8 +14,8 @@ stages: # step 1
   - job: Build # step 2
     displayName: Build
     pool:
-      vmImage: ubuntu-latest
-      # name: Default
+      # vmImage: ubuntu-latest
+      name: Default
     steps: # step 3
     - task: Docker@2
       inputs:
@@ -32,15 +32,15 @@ stages: # step 1
   - job: Provision
     displayName: 'Provision container instance'
     pool:
-      vmImage: ubuntu-latest
-      # name: Default
+      # vmImage: ubuntu-latest
+      name: Default
     variables: # vars from azure devOps in library
     - group: azure
     steps:
-      - task: TerraformInstaller@1
-        displayName: 'Install Terraform'
-        inputs:
-          terraformVersion: 'latest'
+      #- task: TerraformInstaller@1
+      #  displayName: 'Install Terraform'
+      #  inputs:
+      #    terraformVersion: 'latest'
           
       - script: |
           set -e
