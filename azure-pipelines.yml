@@ -1,0 +1,53 @@
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages: # step 1
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build # step 2
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+      # name: Default
+    steps: # step 3
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Docker hub'
+        repository: 'rafaelenrike/utbapp'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          $(tag)
+- stage: Provision
+  displayName: 'Creating terraform on Azure'
+  dependsOn: Build
+  jobs:
+  - job: Provision
+    displayName: 'Provision container instance'
+    pool:
+      vmImage: ubuntu-latest
+      # name: Default
+    variables: # vars from azure devOps in library
+    - group: azure
+    steps:
+      - script: |
+          set -e
+
+          terraform init -input=false
+          terraform apply -input=false -auto-approve
+        name: 'RunTerraform'
+        displayName: 'Run Terraform'
+        env: # these vars are being passed to terraform to properly execute
+          ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+          ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+          ARM_TENANT_ID: $(ARM_TENANT_ID)
+          ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+          TF_VAR_imagebuild: $(tag)
+
